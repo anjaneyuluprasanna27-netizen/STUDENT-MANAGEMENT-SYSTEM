@@ -1,0 +1,49 @@
+{% extends 'students/base.html' %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<div class="card">
+    <h1>Admin Dashboard</h1>
+    <p class="subtitle">
+        <span class="stat-badge">{{ total_count }} student{{ total_count|pluralize }} total</span>
+    </p>
+
+    <form method="get" class="search-bar">
+        <input type="text" name="q" placeholder="Search by name, email, roll number, or course..." value="{{ query }}">
+        <button type="submit" class="btn">Search</button>
+        {% if query %}<a href="{% url 'admin_dashboard' %}" class="btn btn-secondary">Clear</a>{% endif %}
+    </form>
+
+    <a href="{% url 'add_student' %}" class="btn" style="margin-bottom:16px; display:inline-block;">+ Add Student</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Roll No.</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Course</th>
+                <th>Phone</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.roll_number }}</td>
+                <td>{{ student.full_name }}</td>
+                <td>{{ student.email }}</td>
+                <td>{{ student.get_course_display }}</td>
+                <td>{{ student.phone|default:"—" }}</td>
+                <td class="actions">
+                    <a href="{% url 'view_student' student.pk %}">View</a>
+                    <a href="{% url 'edit_student' student.pk %}">Edit</a>
+                    <a href="{% url 'delete_student' student.pk %}" style="color:#dc2626;">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6">No students found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

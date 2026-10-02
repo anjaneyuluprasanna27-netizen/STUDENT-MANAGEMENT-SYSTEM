@@ -1,0 +1,44 @@
+{% extends 'students/base.html' %}
+{% block title %}Edit Student{% endblock %}
+{% block content %}
+<div class="card">
+    <h1>Edit Student — {{ student.full_name }}</h1>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group">
+                <label>Roll Number</label>
+                {{ form.roll_number }}
+                {{ form.roll_number.errors }}
+            </div>
+            <div class="form-group">
+                <label>Phone</label>
+                {{ form.phone }}
+                {{ form.phone.errors }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Course</label>
+                {{ form.course }}
+                {{ form.course.errors }}
+            </div>
+            <div class="form-group">
+                <label>Date of Birth</label>
+                {{ form.date_of_birth }}
+                {{ form.date_of_birth.errors }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Address</label>
+            {{ form.address }}
+            {{ form.address.errors }}
+        </div>
+
+        <button type="submit" class="btn">Save Changes</button>
+        <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

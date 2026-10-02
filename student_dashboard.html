@@ -1,0 +1,31 @@
+{% extends 'students/base.html' %}
+{% block title %}My Dashboard{% endblock %}
+{% block content %}
+<div class="card">
+    <h1>Welcome, {{ student.full_name }} 👋</h1>
+    <p class="subtitle">Roll Number: {{ student.roll_number }}</p>
+
+    <div class="profile-grid">
+        <div>
+            <div class="label">Email</div>
+            <div class="value">{{ student.email }}</div>
+        </div>
+        <div>
+            <div class="label">Phone</div>
+            <div class="value">{{ student.phone|default:"—" }}</div>
+        </div>
+        <div>
+            <div class="label">Course</div>
+            <div class="value">{{ student.get_course_display }}</div>
+        </div>
+        <div>
+            <div class="label">Date of Birth</div>
+            <div class="value">{{ student.date_of_birth|default:"—" }}</div>
+        </div>
+        <div style="grid-column: 1 / -1;">
+            <div class="label">Address</div>
+            <div class="value">{{ student.address|default:"—" }}</div>
+        </div>
+    </div>
+</div>
+{% endblock %}
